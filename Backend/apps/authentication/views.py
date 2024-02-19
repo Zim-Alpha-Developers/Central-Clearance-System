@@ -10,9 +10,9 @@ from django.views.decorators.http import require_http_methods
 from . import serializers, EmailBackEnd
 from marshmallow import ValidationError
 from inertia.share import share
-from authentication.models import *
-from api.helper import *
-from api.views import *
+from apps.authentication.models import *
+from apps.api.helper import *
+from apps.api.views import *
 
 def login_view(request):
     if request.method == "POST":
