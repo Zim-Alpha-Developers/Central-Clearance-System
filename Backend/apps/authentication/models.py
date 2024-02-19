@@ -23,11 +23,29 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(_("staff"), default=False)
     last_login = models.DateTimeField(null=True)
-
+    groups = models.ManyToManyField(
+        "auth.Group",
+        verbose_name=_("groups"),
+        blank=True,
+        help_text=_(
+            "The groups this user belongs to. "
+            "A user will get all permissions granted to each of their groups."
+        ),
+        related_name="customuser_set",  
+        related_query_name="customuser",
+    )
+    user_permissions = models.ManyToManyField(
+        "auth.Permission",
+        verbose_name=_("user permissions"),
+        blank=True,
+        help_text=_("Specific permissions for this user."),
+        related_name="customuser_set", 
+        related_query_name="customuser",
+    )
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["_user", "company"]
+    REQUIRED_FIELDS = ["_user", "email"]
 
     class Meta:
         verbose_name = _("user")
@@ -35,4 +53,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         db_table = "users"
 
     def __str__(self):
-        return str(self.user_id)
+        return str(self.email)

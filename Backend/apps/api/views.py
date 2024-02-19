@@ -2,7 +2,6 @@
 from django.http import HttpResponse
 from inertia import inertia, render
 from django.shortcuts import redirect
-from api.models import *
 from django.http import JsonResponse
 
 

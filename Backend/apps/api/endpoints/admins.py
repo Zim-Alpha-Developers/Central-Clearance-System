@@ -2,7 +2,6 @@ from dateutil.relativedelta import relativedelta
 from django.shortcuts import redirect
 from inertia import render
 from marshmallow import ValidationError
-from api.models import *
 from api.serializers import *
 from django.http import JsonResponse
 import json
