@@ -1,8 +1,10 @@
 # Create your views here.
-from django.http import HttpResponse
-from inertia import inertia, render
-from django.shortcuts import redirect
-from django.http import JsonResponse
+from rest_framework.views import APIView
+from django.shortcuts import redirect, render
+from .models import *
+from apps.api.serializers import *
+from rest_framework.response import Response
+
 
 
 def index(request):
@@ -17,3 +19,18 @@ def index(request):
             return redirect("login")
     else:
         return redirect("login")
+
+class IndividualView(APIView):
+    def get(self, request):
+        individuals = IndividualDetails.objects.all()
+        serializer = IndividualSerializer(individuals, many=True)
+        return Response(serializer.data)
+        return Response(serialized_data)
+
+    def post(self, request):
+        print("IndividualView post")
+        serializer = IndividualSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)

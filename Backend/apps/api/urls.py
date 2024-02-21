@@ -2,8 +2,11 @@ from django.urls import path, include
 from . import views
 from .endpoints import admins, users
 
+
+
 urlpatterns = [
-    path("", views.index, name="home"),
+    path("", views.IndividualView.as_view(), name="home"),
+
     # admins url
         path(
             "admins/",

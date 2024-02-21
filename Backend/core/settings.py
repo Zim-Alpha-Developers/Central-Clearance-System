@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from rest_framework.permissions import AllowAny
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'apps.authentication',
     'apps.api',
     'core',
+    'rest_framework',
+    'corsheaders',
 ]
 
 # MIDDLEWARE = [
@@ -62,13 +65,21 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "inertia.middleware.InertiaMiddleware",
     "core.middleware.AuthPropsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',    
 ]
 ROOT_URLCONF = 'core.urls'
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "Frontend/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
